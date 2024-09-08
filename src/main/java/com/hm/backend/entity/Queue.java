@@ -29,16 +29,14 @@ public class Queue {
     @Column(name = "queue_time")
     private Date queueTime;
 
-    @Column(name = "appointment_time")
-    private Date appointmentTime;
 
     @Column(name = "queue_position")
     private int queuePosition;
-    public Queue(Patient patient, Doctor doctor, Date queueTime, Date appointmentTime, int queuePosition) {
+    public Queue(Patient patient, Doctor doctor, Date queueTime, int queuePosition) {
         this.patient = patient;
         this.doctor = doctor;
         this.queueTime = queueTime;
-        this.appointmentTime = appointmentTime;
         this.queuePosition = queuePosition;
     }
+
 }

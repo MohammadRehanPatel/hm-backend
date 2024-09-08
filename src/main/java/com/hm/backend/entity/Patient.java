@@ -6,7 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
-
+//Technological solution as per queuing models in OPDs/availability of beds/admission of patients would be one area. Study of dispensation of various types of medicines/consumables and Inventory management modules at hospital level are key areas requiring support. NIC has already developed some modules but their implementation in Delhi is yet to be started. A hospital based solution is ideal which can be integrated with city wide module may be required.
 
 @Entity
 @Data
@@ -28,13 +28,12 @@ public class Patient {
     @Column(name = "email")
     private String email;
 
-    @Column(name = "appointment_time")
-    private Date appointmentTime;
 
-    public Patient(String name, String contactNumber, String email, Date appointmentTime) {
+
+
+    public Patient(String name, String contactNumber, String email) {
         this.name = name;
         this.contactNumber = contactNumber;
         this.email = email;
-        this.appointmentTime = appointmentTime;
     }
 }

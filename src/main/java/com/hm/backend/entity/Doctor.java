@@ -14,6 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @Table(name = "doctors")
 public class Doctor {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -25,13 +26,14 @@ public class Doctor {
     @Column(name = "specialization")
     private String specialization;
 
-    @Column(name = "available")
-    private boolean available;
+    @Column(name = "availability",nullable = false)
+    private boolean availability = true;
 
 
-    public Doctor(String name, String specialization, boolean available) {
+
+    public Doctor(String name, String specialization, boolean availability) {
         this.name = name;
         this.specialization = specialization;
-        this.available = available;
+        this.availability = availability;
     }
 }
