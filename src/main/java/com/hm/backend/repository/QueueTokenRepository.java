@@ -10,4 +10,5 @@ public interface QueueTokenRepository extends JpaRepository<QueueToken,Long> {
     List<QueueToken> findByDoctorSpecialization(String specialization);
 
     List<QueueToken> findByDoctor(Doctor doctor);
+//    List<QueueToken> findByDoctorSpecialization(String specialization);
 }

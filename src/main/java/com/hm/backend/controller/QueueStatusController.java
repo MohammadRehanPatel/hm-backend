@@ -1,7 +1,6 @@
 package com.hm.backend.controller;
 
-import com.hm.backend.entity.QueueStatus;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.hm.backend.entity.QueueToken;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,7 +15,7 @@ public class QueueStatusController {
 //    private QueueStatusService queueStatusService;
 
     @GetMapping("/realtime")
-    public ResponseEntity<List<QueueStatus>> getRealtimeQueueStatus() {
+    public ResponseEntity<List<QueueToken>> getRealtimeQueueStatus() {
         return ResponseEntity.ok(null);
     }
 }
