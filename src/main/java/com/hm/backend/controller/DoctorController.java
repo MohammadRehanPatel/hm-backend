@@ -1,6 +1,7 @@
 package com.hm.backend.controller;
 import com.hm.backend.entity.Doctor;
 import com.hm.backend.service.DoctorService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,6 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/doctors")
+@Tag(name = "Doctor APIs")
 public class DoctorController {
     @Autowired
     private DoctorService doctorService;

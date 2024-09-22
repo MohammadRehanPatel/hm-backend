@@ -4,6 +4,7 @@ import com.hm.backend.entity.Doctor;
 import com.hm.backend.entity.QueueToken;
 import com.hm.backend.service.PatientNotificationService;
 import com.hm.backend.service.QueueManagementService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api")
+@Tag(name = "Queue Management APIs")
 public class QueueManagementController {
     @Autowired
     private QueueManagementService queueManagementService;
@@ -76,6 +78,9 @@ public class QueueManagementController {
         }
     }
 
+
+
+
 //    @GetMapping("/waiting-time/{queueTokenId}")
 //    public ResponseEntity<String> getWaitingTime(@PathVariable Long queueTokenId) {
 //        QueueToken queueToken = queueManagementService.findByTokenId(queueTokenId);
@@ -85,4 +90,6 @@ public class QueueManagementController {
 //            return ResponseEntity.notFound().build();
 //        }
 //    }
+
+
 }
