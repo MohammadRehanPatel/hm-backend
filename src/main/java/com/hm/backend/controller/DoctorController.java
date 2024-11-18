@@ -1,10 +1,14 @@
 package com.hm.backend.controller;
+import com.hm.backend.auth.AuthenticationService;
+import com.hm.backend.dto.VerifyTokenResponse;
 import com.hm.backend.entity.Doctor;
 import com.hm.backend.service.DoctorService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,8 +19,12 @@ import java.util.List;
 public class DoctorController {
     @Autowired
     private DoctorService doctorService;
+    @Autowired
+    private AuthenticationService authenticationService;
 
     @GetMapping
+//    @Secured("DOCTOR")
+    @PreAuthorize("hasRole('ROLE_DOCTOR')")
     public ResponseEntity<List<Doctor>> getAllDoctors() {
         List<Doctor> doctors = doctorService.getAllDoctors();
         return new ResponseEntity<>(doctors, HttpStatus.OK);
@@ -30,8 +38,9 @@ public class DoctorController {
 //        return new ResponseEntity<>(doctors, HttpStatus.OK);
 //    }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Doctor> getDoctorById(@PathVariable Long id) {
+    @GetMapping("/")
+    public ResponseEntity<Doctor> getDoctorById(   @RequestHeader("Authorization") String accessToken) {
+        var id = authenticationService.verifyToken(accessToken).getUserId();
         Doctor doctor = doctorService.getDoctorById(id);
         return new ResponseEntity<>(doctor, HttpStatus.OK);
     }

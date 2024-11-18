@@ -3,6 +3,9 @@ package com.hm.backend.service;
 import com.hm.backend.entity.Doctor;
 import com.hm.backend.entity.Patient;
 import com.hm.backend.entity.QueueToken;
+import com.hm.backend.notification.Notification;
+import com.hm.backend.notification.NotificationService;
+import com.hm.backend.notification.NotificationStatus;
 import com.hm.backend.repository.QueueTokenRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,6 +25,8 @@ public class QueueManagementService {
     private PatientService patientService;
     @Autowired
     PatientNotificationService notificationService;
+    @Autowired
+    private NotificationService notificationS;
     private int tokenNumber = 1;
     private Map<Doctor, Integer> waitingTimeMap = new HashMap<>();
 
@@ -52,7 +57,14 @@ public class QueueManagementService {
                 QueueToken queueToken = new QueueToken(patient, doctor, tokenNumber, waitingTime, doctor.getSpecialization());
                 queueTokenRepository.save(queueToken);
                 updateWaitingTime(queueToken);
+
                 incrementTokenNumber(specialization);
+                notificationS.sendNotification(queueToken.getPatient().getName(),
+                        Notification.builder()
+                                .status(NotificationStatus.UPDATED)
+                                .message("Number is Updated")
+                                .patientDetails(queueToken.getPatient().getName())
+                                .build());
                 return queueToken;
             }
         }
@@ -96,6 +108,12 @@ public class QueueManagementService {
         QueueToken queueToken = queueTokenRepository.findById(queueTokenId).orElse(null);
         if (queueToken != null) {
             queueToken.setCheckedUp(true);
+            notificationS.sendNotification(queueToken.getPatient().getName(),
+                    Notification.builder()
+                            .status(NotificationStatus.CHECKED)
+                            .message("You Can Leave Now")
+                            .patientDetails(queueToken.getPatient().getName())
+                            .build());
             queueTokenRepository.save(queueToken);
             removePatientFromQueue(queueTokenId);
         }

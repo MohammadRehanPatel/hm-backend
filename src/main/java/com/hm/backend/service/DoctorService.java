@@ -1,7 +1,9 @@
 package com.hm.backend.service;
 
 
+import com.hm.backend.constants.ErrorMessages;
 import com.hm.backend.entity.Doctor;
+import com.hm.backend.exception.UserNotFoundException;
 import com.hm.backend.repository.DoctorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,6 +20,7 @@ public class DoctorService {
         return doctorRepository.save(doctor);
     }
 
+
     public List<Doctor> getDoctorsBySpecialization(String specialization) {
         return doctorRepository.findDoctorsBySpecialization(specialization);
     }
@@ -27,6 +30,8 @@ public class DoctorService {
     }
 
     public Doctor getDoctorById(Long id) {
-        return doctorRepository.findById(id).orElseThrow(() -> new RuntimeException("Doctor not found"));
+        return doctorRepository.findById(id).orElseThrow(() -> new UserNotFoundException(
+                ErrorMessages.DOCTOR_NOT_FOUND.getErrorMessage(),
+                ErrorMessages.DOCTOR_NOT_FOUND.getErrorCode()));
     }
 }
