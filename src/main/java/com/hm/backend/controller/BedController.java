@@ -11,6 +11,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/beds")
 @Tag(name = "Bed APIs")
+@CrossOrigin("*")
 public class BedController {
     @Autowired
     private BedService bedService;

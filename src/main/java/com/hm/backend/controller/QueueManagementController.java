@@ -13,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api")
+@CrossOrigin("*")
 @Tag(name = "Queue Management APIs")
 public class QueueManagementController {
     @Autowired
